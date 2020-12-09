@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.FileMapper">
+    <select id="selectFile" resultType="DisFile" resultMap="fileMap">
+        select * from t_discuser;
+    </select>
+    <resultMap id="fileMap" type="DisFile">
+        <id column="did" property="did"></id>
+        <collection property="files" column="did" ofType="File" select="selectDisFile">
+
+        </collection>
+    </resultMap>
+    <select id="selectDisFile" parameterType="java.lang.Integer" resultType="File">
+        select * from t_file where did=#{did}
+    </select>
+
+
+
+    <select id="selectDisf" resultType="File" resultMap="disFileMap">
+        select * from t_file;
+    </select>
+    <resultMap id="disFileMap" type="File">
+        <association property="disFile" column="did" javaType="DisFile" select="sdf">
+
+        </association>
+    </resultMap>
+    <select id="sdf" resultType="DisFile" parameterType="java.lang.Integer">
+        select * from t_discuser where did=#{did};
+    </select>
+
+
+
+    <select id="sdfile" resultMap="sdfileMap">
+        select t1.*,t2.did from t_file t1 left join t_discuser t2 on t1.did=t2.did;
+    </select>
+    <resultMap id="sdfileMap" type="File">
+            <id column="fid" property="fid"></id>
+            <result column="fname" property="fname"></result>
+            <result column="fileSize" property="fileSize"></result>
+            <result column="fileRoad" property="fileRoad"></result>
+            <result column="did" property="did"></result>
+        <association property="disFile" column="did" javaType="DisFile">
+            <id column="did" property="did"></id>
+        </association>
+    </resultMap>
+</mapper>

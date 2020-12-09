@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.LoginMapper">
+    <select id="adminLogin" parameterType="Admin" resultType="Admin">
+        select * from t_user where account=#{account} and pwd=#{pwd};
+
+    </select>
+    <select id="login" parameterType="Discuser" resultType="Discuser">
+        select * from t_discuser where daccount=#{daccount} and dpwd=#{dpwd};
+    </select>
+    <insert id="regiser" parameterType="Discuser">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+            select user_seq.nextval from dual
+        </selectKey>
+        insert into t_discuser (daccount,dpwd,sex,education,major,phone,email)values
+        (#{daccount},#{dpwd},#{sex},#{education},#{major},#{phone},#{email});
+    </insert>
+    <select id="existence" parameterType="Discuser">
+        select count(*) from t_discuser where daccount=#{daccount}
+    </select>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.UserMapper">
+    <insert id="addUser" parameterType="Discuser">
+        insert into t_discuser(daccount,dpwd,sex,education,major,phone,email)values
+        (#{daccount},#{dpwd},#{sex},#{education},#{major},#{phone},#{email});
+    </insert>
+    <delete id="deleteUser" parameterType="Discuser">
+        delete from t_discuser where did=#{did};
+    </delete>
+    <update id="updataUser" parameterType="Discuser">
+        update t_discuser set daccount=#{daccount},dpwd=#{dpwd},sex=#{sex},education=#{education},major=#{major},
+        phone=#{phone},email=#{email} where did=#{did};
+    </update>
+    <select id="findAll" parameterType="Discuser">
+        select * from t_discuser;
+    </select>
+</mapper>
